@@ -40,17 +40,17 @@ exports.signup = async (req, res, next) => {
 	try {
 		const newuser = req.body
 	
-		let schonVorhandenUser = await User.find({ email: newuser.email })
-		if (schonVorhandenUser.length >= 1) {
-			return res.status(409).send('Es gib schon einen Nutzer mit dieser Email')
+		let alreadyuser = await User.find({ email: newuser.email })
+		if (alreadyuser.length >= 1) {
+			return res.status(409).send('There is already a user with this email')
 		}
 
 		let passwortGehashed = await bcrypt.hash(newuser.password, 10)
 		let createuser = await User.create({ ...newuser, password: passwortGehashed })
 		res.status(201).send(createuser);
 
-	} catch (fehler) {
-		res.status(500).send('Da lief was schief!')
+	} catch (error) {
+		res.status(500).send('Something went wrong!')
 	}
 }
 
