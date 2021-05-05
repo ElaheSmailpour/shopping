@@ -2,9 +2,9 @@
 const express = require('express')
 const router = express.Router()
 
-const {ProductController,postProduct}=require("../controller/ProductController")
+const {getProduct,postProduct}=require("../controller/ProductController")
 
-router.get("/",ProductController)
+router.get("/",getProduct)
 
 router.post("/",postProduct)
 

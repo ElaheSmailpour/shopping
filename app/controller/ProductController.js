@@ -1,6 +1,6 @@
 const Product = require("../model/product");
 
-exports.ProductController = async (req, res, next) => {
+exports.getProduct = async (req, res, next) => {
   const products = await Product.find().populate("category");
   res.send(products);
 }
@@ -18,3 +18,4 @@ console.log("pruductlist=",pruductlist)
     res.status(500).send(" create pruduct error " + error);
   });
 }
+

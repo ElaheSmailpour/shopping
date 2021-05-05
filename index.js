@@ -6,6 +6,7 @@ var path = require('path');
 const app = express();
 const userRoute=require("./app/routes/user")
 const ProductRouter=require("./app/routes/Product")
+const categoryRouter=require("./app/routes/category")
 
 
 const verbindeDB = require("./mongo-db");
@@ -20,6 +21,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/api",userRoute)
 app.use("/product",ProductRouter)
+app.use("/category",categoryRouter)
+
 
 app.get('*', (req,res, next) =>{
     res.status(404).send("Diesen Pfad gibt es nicht")
