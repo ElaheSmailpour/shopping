@@ -4,11 +4,13 @@ const productSchema = new mongoose.Schema({
     price: Number,
     articlenumber:
     {
-        type: Number, unique: true
+        type: Number,
+        required: true,
     },
     category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "category"
+       
     },
     image: String
 })
