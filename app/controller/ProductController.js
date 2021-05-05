@@ -11,6 +11,7 @@ exports.postProduct = (req, res) => {
 console.log("pruductlist=",pruductlist)
   Product.create(pruductlist).then(
     (erfolg) => {
+      
       res.status(201).send(erfolg);
     }
   ).catch((error) => {
