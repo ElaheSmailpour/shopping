@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/api",userRoute)
-app.use("/Product",ProductRouter)
+app.use("/product",ProductRouter)
 
 app.get('*', (req,res, next) =>{
     res.status(404).send("Diesen Pfad gibt es nicht")
