@@ -5,10 +5,10 @@ exports.ProductController = async (req, res, next) => {
   res.send(products);
 }
 
-exports.postProduct = (req, res, next) => {
+exports.postProduct = (req, res) => {
 
   const pruductlist = req.body;
-
+console.log("pruductlist=",pruductlist)
   Product.create(pruductlist).then(
     (erfolg) => {
       res.status(201).send(erfolg);
