@@ -12,8 +12,8 @@ const verbindeDB = () => {
         console.log("Bin mit der Datenbank verbunden");
      
 
-    } ).catch( (fehler) => {
-        console.error("Fehler mit MongoDB: "+fehler);
+    } ).catch( (error) => {
+        console.error(" MongoDB error: "+error);
     } );
 
 }

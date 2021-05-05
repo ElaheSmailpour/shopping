@@ -1,35 +1,19 @@
+const Product = require("../model/product");
 
-require("dotenv").config();
-const mongoose=require("mongoose");
-var express = require('express');
-var path = require('path');
+exports.ProductController = async (req, res, next) => {
+  const products = await Product.find().populate("category");
+  res.send(products);
+}
 
-const app = express();
-const loginRouter = require('../routes/');
+exports.postProduct = (req, res, next) => {
 
-const verbindeDB = require("./mongo-db");
+  const pruductlist = req.body;
 
-
-verbindeDB()
-
-app.use(express.json());
-
-app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use("/login",signupRouter)
-
-
-
-app.get('*', (req,res, next) =>{
-    res.status(404).send("Diesen Pfad gibt es nicht")
-   
-    
-  })
-  
- 
-  
-const port = process.env.PORT || 5000;
-
-app.listen(port, () => { console.log("Läuft auf Port" + port) })
-
+  Product.create(pruductlist).then(
+    (erfolg) => {
+      res.status(201).send(erfolg);
+    }
+  ).catch((error) => {
+    res.status(500).send(" create pruduct error " + error);
+  });
+}
