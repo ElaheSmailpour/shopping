@@ -5,7 +5,7 @@ const productSchema = new mongoose.Schema({
     articlenumber:
     {
         type: Number,
-        required: true,
+        unique: true
     },
     category: {
         type: mongoose.Schema.Types.ObjectId,

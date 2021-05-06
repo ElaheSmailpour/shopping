@@ -2,7 +2,9 @@
 const express = require('express')
 const router = express.Router()
 
-const {postcategory}=require("../controller/category")
+const {getcategory,postcategory}=require("../controller/category")
+
+router.get("/",getcategory)
 
 router.post("/",postcategory)
 
