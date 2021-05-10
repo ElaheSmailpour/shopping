@@ -21,4 +21,16 @@ exports.getcategory = (req, res) => {
     res.status(400).send(" get category error " + error);
   });
 }
+exports.deletecategory = (req, res, next) => {
+	const { _id } = req.params;
 
+	category.deleteOne({ _id }).then(
+		(erfolg) => {
+			res.status(200).send(erfolg);
+		}
+	).catch(
+		(error) => {
+			res.status(500).send({ message: "error with DELETE ", objekt: error })
+		}
+	)
+}

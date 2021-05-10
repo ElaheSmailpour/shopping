@@ -2,10 +2,14 @@
 const express = require('express')
 const router = express.Router()
 
-const {getcategory,postcategory}=require("../controller/category")
+const { getcategory, postcategory, deletecategory } = require("../controller/category")
 
-router.get("/",getcategory)
+router.get("/", getcategory)
 
-router.post("/",postcategory)
+router.post("/", postcategory)
 
-module.exports=router
+router
+    .route('/:_id')
+
+    .delete(deletecategory);
+module.exports = router

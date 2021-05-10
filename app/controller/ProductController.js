@@ -19,3 +19,17 @@ console.log("pruductlist=",pruductlist)
   });
 }
 
+exports.deleteproduct = (req, res, next) => {
+	const { _id } = req.params;
+
+	Product.deleteOne({ _id }).then(
+		(erfolg) => {
+			res.status(200).send(erfolg);
+		}
+	).catch(
+		(error) => {
+			res.status(500).send({ message: "error with DELETE ", objekt: error })
+		}
+	)
+}
+
