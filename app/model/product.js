@@ -13,8 +13,9 @@ const productSchema = new mongoose.Schema({
         ref: "category"
 
     },
+    
     image: String
 })
 
-const model = mongoose.model("product", productSchema)
+const model = mongoose.model("product1", productSchema)
 module.exports = model

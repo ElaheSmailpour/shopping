@@ -5,7 +5,7 @@ exports.getProduct = async (req, res, next) => {
   res.send(products);
 }
 
-exports.postProduct = (req, res) => {
+exports.addProduct = (req, res) => {
 
   const pruductlist = req.body;
 console.log("pruductlist=",pruductlist)

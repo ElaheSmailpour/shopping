@@ -4,6 +4,7 @@ require("dotenv").config();
 var express = require('express');
 var path = require('path');
 const app = express();
+const cors = require("cors")
 const userRoute=require("./app/routes/user")
 const ProductRouter=require("./app/routes/Product")
 const categoryRouter=require("./app/routes/category")
@@ -18,6 +19,7 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
 app.use("/api",userRoute)
 app.use("/product",ProductRouter)

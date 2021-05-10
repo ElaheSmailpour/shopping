@@ -18,7 +18,7 @@ exports.getcategory = (req, res) => {
   category.find().then((erfolg) => {
     res.status(200).send(erfolg);
   }).catch((error) => {
-    res.status(400).send(" create category error " + error);
+    res.status(400).send(" get category error " + error);
   });
 }
 

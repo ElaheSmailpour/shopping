@@ -9,7 +9,7 @@ const verbindeDB = () => {
 
     
     mongoose.connect(addressString, optionen).then( (mongooseModul) => {
-        console.log("Bin mit der Datenbank verbunden");
+        console.log("connected..");
      
 
     } ).catch( (error) => {
