@@ -4,7 +4,20 @@ exports.getProduct = async (req, res, next) => {
   const products = await Product.find().populate("category");
   res.send(products);
 }
+/*
+exports.addProduct =async(req,res)=>{
+  const product =new Product({
+      name: req.body.name,
+      price: req.body.price,
+      artikelnummer: req.body.articleNumber,
+      category: req.body.category,
+      image: "",
+  })
+  await Product.save();
+  res.send(product);
 
+}
+*/
 exports.addProduct = (req, res) => {
 
   const pruductlist = req.body;

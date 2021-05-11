@@ -54,3 +54,12 @@ exports.signup = async (req, res, next) => {
 	}
 }
 
+
+exports.getsignup = (req, res) => {
+	User.find().then((erfolg) => {
+	  res.status(200).send(erfolg);
+	}).catch((error) => {
+	  res.status(400).send(" get signup error " + error);
+	});
+  }
+
