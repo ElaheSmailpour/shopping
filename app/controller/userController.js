@@ -75,7 +75,7 @@ exports.googleaccount = async (req, res) => {
 	const { name, email, picture } = ticket.getPayload();
 	const user = await User.findOne({email})
 	if (!user){
-		res.status(401).send("find not Your Email!")
+		res.status(401).send("find not Your Email and please signup !")
 	}
 	await User.updateOne({email},{$set:{name,image:picture}})
 	console.log("user=",user)
