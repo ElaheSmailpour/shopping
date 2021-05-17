@@ -10,7 +10,6 @@ const ProductRouter=require("./app/routes/Product")
 const categoryRouter=require("./app/routes/category")
 
 
-
 const verbindeDB = require("./mongo-db");
 
 verbindeDB()
@@ -22,7 +21,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(multer({dest: 'uploads'}).single('image'))
-app.use(express.static("uploads"))
+app.use(express.static(__dirname + "/uploads"));
+//app.use(express.static("uploads"))
 app.use(cors());
 
 app.use("/api",userRoute)
