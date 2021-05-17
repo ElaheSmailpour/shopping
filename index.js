@@ -20,7 +20,8 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(multer({dest: 'uploads'}).single('bild'))
+
+app.use(multer({dest: 'uploads'}).single('image'))
 app.use(express.static("uploads"))
 app.use(cors());
 
