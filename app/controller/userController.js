@@ -65,7 +65,27 @@ exports.getsignup = (req, res) => {
 		res.status(400).send(" get signup error " + error);
 	});
 }
+//googleaccount-signup
+exports.signupgoogle = async (req, res, next) => {
+	try {
+		console.log("image=",req.file)
+		const newuser = req.body
 
+		let alreadyuser = await User.find({ email: newuser.email })
+		if (alreadyuser.length >= 1) {
+			return res.status(409).send('There is already a user with this email')
+		}
+
+		let passwortGehashed = await bcrypt.hash(newuser.password, 10)
+		let createuser = await User.create({ ...newuser,image:req.file.filename, password: passwortGehashed })
+		res.status(201).send(createuser);
+
+	} catch (error) {
+		res.status(500).send('Something went wrong!')
+	}
+}
+
+//googleaccount
 exports.googleaccount = async (req, res) => {
 	const { token } = req.body
 	const ticket = await client.verifyIdToken({

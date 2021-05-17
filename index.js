@@ -1,6 +1,6 @@
 
 require("dotenv").config();
-
+const multer=require("multer")
 var express = require('express');
 var path = require('path');
 const app = express();
@@ -20,6 +20,8 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(multer({dest: 'uploads'}).single('bild'))
+app.use(express.static("uploads"))
 app.use(cors());
 
 app.use("/api",userRoute)
