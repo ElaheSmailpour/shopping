@@ -9,7 +9,9 @@ const userSchema = new mongoose.Schema({
         enum: ["Male", "Female","Other"],
         default: "Male"
 
-    }
+    },
+    image:String
+    
 })
 const model = mongoose.model("user", userSchema)
 
