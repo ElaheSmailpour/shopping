@@ -79,8 +79,13 @@ exports.signupgoogle = async (req, res, next) => {
 
 		let passwortGehashed = await bcrypt.hash(newuser.password, 10)
 		let createuser = await User.create({ ...newuser, password: passwortGehashed })
-		res.status(201).send(createuser);
-		
+	//	res.status(201).send(createuser);
+	res.status(200).json({
+		message: 'You aresignup with google',
+
+		name:newuser.name,
+		image:newuser.image
+	}).send(createuser)
 
 	} catch (error) {
 		res.status(500).send('Something went wrong!')
