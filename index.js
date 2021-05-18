@@ -16,13 +16,14 @@ verbindeDB()
 
 
 app.use(express.json());
+app.use(cors());
 
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 app.use(multer({dest: 'uploads/'}).single('image'))
 
-app.use(cors());
 
 app.use(express.static('uploads'))
 app.use("/api",userRoute)
