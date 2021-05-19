@@ -81,7 +81,7 @@ exports.signupgoogle = async (req, res, next) => {
 		}
 
 		let passwortGehashed = await bcrypt.hash(newuser.password, 10)
-		let createuser = await User.create({ ...newuser, password: passwortGehashed,image:path})
+		let createuser = await User.create({ ...newuser, password: passwortGehashed,image:"http://" + path})
 		const pic="/" + createuser.image 
 		res.status(201).send(pic );
 	
