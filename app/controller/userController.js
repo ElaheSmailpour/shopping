@@ -69,24 +69,22 @@ exports.getsignup = (req, res) => {
 
 exports.signupgoogle = async (req, res, next) => {
 	try {
-		
 		const newuser = req.body
-		
+
+		const path = req.file.path.replace(/\\/g, "/")
+		const imagefilename = req.file.filename
+	     console.log("path=",path)
+		 console.log("imagefilename=",imagefilename)
 		let alreadyuser = await User.find({ email: newuser.email })
 		if (alreadyuser.length >= 1) {
 			return res.status(409).send('There is already a user with this email')
 		}
 
 		let passwortGehashed = await bcrypt.hash(newuser.password, 10)
-		let createuser = await User.create({ ...newuser, password: passwortGehashed })
-	//	res.status(201).send(createuser);
-	res.status(200).json({
-		message: 'You aresignup with google',
-
-		name:newuser.name,
-		image:newuser.image
-	}).send(createuser)
-
+		let createuser = await User.create({ ...newuser, password: passwortGehashed,image:path})
+		const pic="/" + createuser.image 
+		res.status(201).send(pic );
+	
 	} catch (error) {
 		res.status(500).send('Something went wrong!')
 	}

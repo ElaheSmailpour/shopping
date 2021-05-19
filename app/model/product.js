@@ -14,7 +14,8 @@ const productSchema = new mongoose.Schema({
 
     },
     
-    image: String
+    image: String,
+    inventory:Number
 })
 
 const model = mongoose.model("product1", productSchema)

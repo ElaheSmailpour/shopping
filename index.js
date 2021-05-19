@@ -20,12 +20,33 @@ app.use(cors());
 
 app.use(express.urlencoded({ extended: false }));
 
+//for Multer
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      cb(null, './uploads');
+  },
+  filename: function (req, file, cb) {
+      cb(null, Date.now() + "--" + file.originalname);
+  }
+});  
+
+const fileFilter = (req, file, cb) => {
+  if((file.mimetype).includes('jpeg') || (file.mimetype).includes('png') || (file.mimetype).includes('jpg')){
+      cb(null, true);
+  } else{
+      cb(null, false);
+
+  }
+
+};
+
+//let upload = multer({ storage: storage, fileFilter: fileFilter,});
 
 
 app.use(multer({dest: 'uploads/'}).single('image'))
-
-
 app.use(express.static('uploads'))
+
+
 app.use("/api",userRoute)
 app.use("/product",ProductRouter)
 app.use("/category",categoryRouter)
