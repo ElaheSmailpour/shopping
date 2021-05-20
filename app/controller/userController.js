@@ -81,9 +81,10 @@ exports.signupgoogle = async (req, res, next) => {
 		}
 
 		let passwortGehashed = await bcrypt.hash(newuser.password, 10)
-		let createuser = await User.create({ ...newuser, password: passwortGehashed,image:"http://" + path})
-		const pic="/" + createuser.image 
-		res.status(201).send(pic );
+		let createuser = await User.create({ ...newuser, password: passwortGehashed,image:"http://localhost:" + process.env.PORT + "/" + imagefilename})
+		console.log("multer=","http://localhost:" + process.env.PORT + "/" + imagefilename)
+		//const pic="/" + createuser.image 
+		res.status(201).send(createuser );
 	
 	} catch (error) {
 		res.status(500).send('Something went wrong!')
@@ -117,4 +118,19 @@ exports.googleaccount = async (req, res) => {
 		image:user.image
 	})
 	
+}
+
+
+exports.deleteloginuser = (req, res, next) => {
+	const { _id } = req.params;
+
+	User.deleteOne({ _id }).then(
+		(erfolg) => {
+			res.status(200).send(erfolg);
+		}
+	).catch(
+		(error) => {
+			res.status(500).send({ message: "error with DELETE login", objekt: error })
+		}
+	)
 }
