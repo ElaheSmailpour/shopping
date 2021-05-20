@@ -49,15 +49,15 @@ exports.getsignup = (req, res) => {
 		res.status(400).send(" get signup error " + error);
 	});
 }
-//googleaccount-signup
+//post-signup
 
-exports.signupgoogle = async (req, res, next) => {
+exports.signup = async (req, res, next) => {
 	try {
 		const newuser = req.body
 
-		const path = req.file.path.replace(/\\/g, "/")
+		
 		const imagefilename = req.file.filename
-	     console.log("path=",path)
+	   
 		 console.log("imagefilename=",imagefilename)
 		let alreadyuser = await User.find({ email: newuser.email })
 		if (alreadyuser.length >= 1) {
@@ -67,7 +67,7 @@ exports.signupgoogle = async (req, res, next) => {
 		let passwortGehashed = await bcrypt.hash(newuser.password, 10)
 		let createuser = await User.create({ ...newuser, password: passwortGehashed,image:"http://localhost:" + process.env.PORT + "/" + imagefilename})
 		console.log("multer=","http://localhost:" + process.env.PORT + "/" + imagefilename)
-		//const pic="/" + createuser.image 
+		
 		res.status(201).send(createuser );
 	
 	} catch (error) {
@@ -104,7 +104,7 @@ exports.googleaccount = async (req, res) => {
 	
 }
 
-exports.signupgoogle1 = async (req, res) => {
+exports.signupgoogle = async (req, res) => {
 
 	const { token } = req.body
 	const ticket = await client.verifyIdToken({
