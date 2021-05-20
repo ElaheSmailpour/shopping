@@ -39,23 +39,7 @@ exports.login = async (req, res, next) => {
 
 
 
-exports.signup = async (req, res, next) => {
-	try {
-		const newuser = req.body
 
-		let alreadyuser = await User.find({ email: newuser.email })
-		if (alreadyuser.length >= 1) {
-			return res.status(409).send('There is already a user with this email')
-		}
-
-		let passwortGehashed = await bcrypt.hash(newuser.password, 10)
-		let createuser = await User.create({ ...newuser, password: passwortGehashed })
-		res.status(201).send(createuser);
-
-	} catch (error) {
-		res.status(500).send('Something went wrong!')
-	}
-}
 
 
 exports.getsignup = (req, res) => {
@@ -102,7 +86,7 @@ exports.googleaccount = async (req, res) => {
 	const { name, email, picture } = ticket.getPayload();
 	const user = await User.findOne({email})
 	if (!user){
-		res.status(401).send("find not Your Email and please signup !")
+		 return res.status(401).send("find not Your Email and please signup !")
 	}
 	await User.updateOne({email},{$set:{name,image:picture}})
 	console.log("user=",user)
@@ -120,6 +104,34 @@ exports.googleaccount = async (req, res) => {
 	
 }
 
+exports.signupgoogle1 = async (req, res) => {
+
+	const { token } = req.body
+	const ticket = await client.verifyIdToken({
+		idToken: token,
+		audience: process.env.CLIENT_ID
+	});
+	const { name, email, picture } = ticket.getPayload();
+	const user = await User.findOne({email})
+	if (user){
+		
+		return res.status(401).send("Already user und please signup !")
+		
+	}
+	
+	let createuser=await User.create({name,email,image:picture})
+	let tokenjwt = jwt.sign({
+		email:email,
+		userId: createuser._id,
+	}, process.env.JWT || 'ein Geheimnis', { expiresIn: '3h' })
+	res.status(200).json({
+		message: 'You are log it',
+		token: tokenjwt,
+		name:createuser.name,
+		image:createuser.image
+	})
+	
+}
 
 exports.deleteloginuser = (req, res, next) => {
 	const { _id } = req.params;
