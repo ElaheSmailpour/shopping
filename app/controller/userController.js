@@ -115,7 +115,7 @@ exports.signupgoogle = async (req, res) => {
 	const user = await User.findOne({email})
 	if (user){
 		
-		return res.status(401).send("Already user und please signup !")
+		return res.status(401).send("Already user and please signup !")
 		
 	}
 	

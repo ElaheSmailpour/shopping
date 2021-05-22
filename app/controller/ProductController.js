@@ -46,3 +46,16 @@ exports.deleteproduct = (req, res, next) => {
 	)
 }
 
+exports.selectproduct = (req, res, next) => {
+	
+	const { select} = req.params;
+Product.find({select}).then((erfolg)=>{
+	
+  res.status(200).send(erfolg);
+		
+		  }).catch((error)=>{
+        res.status(401).send("error selectproduct",error)
+      })
+		
+}
+	

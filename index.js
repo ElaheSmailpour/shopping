@@ -28,8 +28,6 @@ app.use(express.static('uploads'))
 app.use("/api",userRoute)
 app.use("/product",ProductRouter)
 app.use("/category",categoryRouter)
-
-
 app.get('*', (req,res, next) =>{
     res.status(404).send("Diesen Pfad gibt es nicht")
    
