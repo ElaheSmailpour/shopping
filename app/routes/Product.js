@@ -12,6 +12,7 @@ router.route('/:select')
  
 
 router.post("/",addProduct)
+
 router
   .route('/:_id')
       

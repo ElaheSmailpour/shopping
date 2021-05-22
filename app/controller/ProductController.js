@@ -49,8 +49,8 @@ exports.deleteproduct = (req, res, next) => {
 exports.selectproduct = (req, res, next) => {
 	
 	const { select} = req.params;
-Product.find({select}).then((erfolg)=>{
-	
+  Product.findOne({select}).then((erfolg)=>{
+	console.log("select=",select)
   res.status(200).send(erfolg);
 		
 		  }).catch((error)=>{
