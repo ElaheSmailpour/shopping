@@ -8,7 +8,7 @@ const cors = require("cors")
 const userRoute=require("./app/routes/user")
 const ProductRouter=require("./app/routes/Product")
 const categoryRouter=require("./app/routes/category")
-
+const noteRouter=require("./app/routes/note")
 
 const verbindeDB = require("./mongo-db");
 
@@ -28,6 +28,7 @@ app.use(express.static('uploads'))
 app.use("/api",userRoute)
 app.use("/product",ProductRouter)
 app.use("/category",categoryRouter)
+app.use("/note",noteRouter)
 app.get('*', (req,res, next) =>{
     res.status(404).send("Diesen Pfad gibt es nicht")
    

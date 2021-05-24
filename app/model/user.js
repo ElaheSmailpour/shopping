@@ -10,7 +10,11 @@ const userSchema = new mongoose.Schema({
         default: "Male"
 
     },
-    image:String
+    image:String,
+    notes:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "product1"
+    }]
     
 })
 const model = mongoose.model("user", userSchema)

@@ -72,13 +72,29 @@ exports.deleteproduct = (req, res, next) => {
 
 exports.selectproduct = (req, res, next) => {
 
-  const { select } = req.params;
-  Product.find({ category: select }).then((erfolg) => {
-    console.log("select=", select)
+  const { cat } = req.params;
+  console.log("cat=", cat)
+  Product.find({ category: cat }).then((erfolg) => {
+ 
     res.status(200).send(erfolg);
 
   }).catch((error) => {
     res.status(401).send("error with selectproduct", error)
   })
 
+}
+
+
+exports.productdetails = (req, res, next) => {
+  const { _id } = req.params;
+
+  Product.findById(_id).then(
+    (erfolg) => {
+      res.status(200).send(erfolg);
+    }
+  ).catch(
+    (error) => {
+      res.status(500).send({ message: "error with productdetails ", objekt: error })
+    }
+  )
 }
