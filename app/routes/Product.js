@@ -1,4 +1,6 @@
 
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
 const express = require('express')
 const router = express.Router()
 
@@ -11,7 +13,7 @@ router.route('/:select')
 .get(selectproduct)
  
 
-router.post("/",addProduct)
+router.post("/",upload.single("image"),addProduct)
 
 router
   .route('/:_id')
