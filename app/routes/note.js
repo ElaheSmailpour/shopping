@@ -2,10 +2,12 @@ const auth=require("../middelware/Auth")
 const express = require('express')
 const router = express.Router()
 
-const { getnote } = require("../controller/notecontroller")
+const { getnote,creatnote,removenote } = require("../controller/notecontroller")
 
 router.get("/",auth,getnote)
 
-//router.post("/",auth, postnote)
+router.get("/:productid",auth, creatnote)
+router.delete("/:id",auth, removenote)
+
 
 module.exports = router
