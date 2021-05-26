@@ -94,7 +94,7 @@ exports.googleaccount = async (req, res) => {
 	let tokenjwt = jwt.sign({
 		email:email,
 		userId: user._id,
-	}, process.env.JWT || 'ein Geheimnis', { expiresIn: '3h' })
+	}, "elahe" || 'Geheimnis', { expiresIn: '3h' })
 	res.status(200).json({
 		message: 'You are log it',
 		token: tokenjwt,

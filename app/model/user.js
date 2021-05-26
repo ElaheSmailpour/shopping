@@ -6,16 +6,19 @@ const userSchema = new mongoose.Schema({
     email: String,
     gender: {
         type: String,
-        enum: ["Male", "Female","Other"],
+        enum: ["Male", "Female", "Other"],
         default: "Male"
 
     },
-    image:String,
-    notes:[{
+    image: String,
+    notes: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "product1"
+    }],
+    cart: [{
+        product: { type: mongoose.Schema.Types.ObjectId, ref: "product1" }, count: Number
     }]
-    
+
 })
 const model = mongoose.model("user", userSchema)
 

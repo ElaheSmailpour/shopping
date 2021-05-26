@@ -39,8 +39,13 @@ exports.removenote = async (req, res, next) => {
     let finduser = await User.findOne({ _id: req.user.userId })
     if (finduser) {
      if(finduser.notes.includes(req.params.id)){
-      finduser.notes = finduser.notes.filter(item=>item!==req.params.id)
-    
+      finduser.notes = finduser.notes.filter(item=>{
+        
+       return item!=req.params.id
+     
+      })
+      
+
       await finduser.save()
      }
 

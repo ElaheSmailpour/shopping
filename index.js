@@ -9,7 +9,7 @@ const userRoute=require("./app/routes/user")
 const ProductRouter=require("./app/routes/Product")
 const categoryRouter=require("./app/routes/category")
 const noteRouter=require("./app/routes/note")
-
+const addcartRouter=require("./app/routes/addcart")
 const verbindeDB = require("./mongo-db");
 
 verbindeDB()
@@ -29,6 +29,7 @@ app.use("/api",userRoute)
 app.use("/product",ProductRouter)
 app.use("/category",categoryRouter)
 app.use("/note",noteRouter)
+app.use("/addcart",addcartRouter)
 app.get('*', (req,res, next) =>{
     res.status(404).send("Diesen Pfad gibt es nicht")
    
