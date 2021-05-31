@@ -1,16 +1,16 @@
-
+const auth=require("../middelware/Auth")
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 const express = require('express')
 
 const router = express.Router()
 
-const {login,getsignup,googleaccount,signupgoogle,deleteloginuser,signup}=require("../controller/userController")
+const {login,getsignup,googleaccount,signupgoogle,deleteloginuser,signup,getme}=require("../controller/userController")
 
 
 router.post("/login",login)
 router.get("/signup",getsignup)
-
+router.get("/getme",auth,getme)
 router.post("/auth/google",googleaccount)
 router.post("/signup",upload.single("image"),signup)
 router.post("/signupgoogle1",signupgoogle)

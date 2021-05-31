@@ -22,7 +22,7 @@ exports.login = async (req, res, next) => {
 			let token = jwt.sign({
 				email: useremail.email,
 				userId: useremail._id,
-			}, "elahe" , { expiresIn: '3h' })
+			}, process.env.JWT , { expiresIn: '3h' })
 			res.status(200).json({
 				message: 'You are log it',
 				token: token,
@@ -36,7 +36,13 @@ exports.login = async (req, res, next) => {
 		res.status(401).send('Du konntest nicht eingeloggt werden')
 	}
 }
-
+exports.getme = (req, res) => {
+	User.findById(req.user.userId).then((erfolg) => {
+		res.status(200).send(erfolg);
+	}).catch((error) => {
+		res.status(400).send(" get getme error " + error);
+	});
+}
 
 
 
@@ -94,7 +100,7 @@ exports.googleaccount = async (req, res) => {
 	let tokenjwt = jwt.sign({
 		email:email,
 		userId: user._id,
-	}, "elahe" || 'Geheimnis', { expiresIn: '3h' })
+	}, process.env.JWT || 'Geheimnis', { expiresIn: '3h' })
 	res.status(200).json({
 		message: 'You are log it',
 		token: tokenjwt,
