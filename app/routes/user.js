@@ -14,7 +14,7 @@ router.get("/getme",auth,getme)
 router.post("/auth/google",googleaccount)
 router.post("/signup",upload.single("image"),signup)
 router.post("/signupgoogle1",signupgoogle)
-router.put("/change",auth,changeProfile)
+router.put("/",[upload.single("image"),auth],changeProfile)
 
 router
     .route('/signup/:_id')

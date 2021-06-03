@@ -22,7 +22,7 @@ exports.login = async (req, res, next) => {
 			let token = jwt.sign({
 				email: useremail.email,
 				userId: useremail._id,
-			}, process.env.JWT, { expiresIn:expiresInReemberme })
+			}, process.env.JWT, { expiresIn: expiresInReemberme })
 			res.status(200).json({
 				message: 'You are log it',
 				token: token,
@@ -158,20 +158,30 @@ exports.deleteloginuser = (req, res, next) => {
 exports.changeProfile = async (req, res, next) => {
 
 	try {
-		const { _id } = req.params;
-		const userdata = req.body;
-		
-		
-		if (userdata.passwort) {
-		
-			let hashPasswort = await bcrypt.hash(nutzerDaten.passwort, 10)
-			let newUser = await User.findOneAndUpdate({_id},{...userdata, passwort: hashPasswort })
-			return res.status(200).send(newUser)
-		} else {
-					
-			let updateUser = await User.findOneAndUpdate({ _id }, userdata, { new: true, upsert: true })
-			return res.status(200).send(updateUser)
+		const _id = req.user.userId;
+		const body = req.body;
+
+		let findUser = await User.findById(_id)
+		if (body.name) {
+			findUser.name = body.name
 		}
+		if (body.gender) {
+			findUser.gender = body.gender
+		}
+		console.log(req.file)
+		if (req.file) {
+		
+			const imagefilename = req.file.filename;
+			findUser.image = "http://localhost:" + process.env.PORT + "/" + imagefilename
+		}
+		if (body.password) {
+
+			let hashPassword = await bcrypt.hash(body.password, 10)
+			findUser.password = hashPassword
+		}
+		await findUser.save()
+		return res.status(200).send(findUser)
+
 
 	} catch (error) {
 		res.status(500).send({ message: "Error With PUT /users/_id ", objekt: error })
