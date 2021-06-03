@@ -19,6 +19,6 @@ module.exports = (req, res, next) => {
     }
     catch (error) {
         res.status(401).send("no access")
-        console.log(error)
+       
     }
 }

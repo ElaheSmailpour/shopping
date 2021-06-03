@@ -1,5 +1,5 @@
 const category = require("../model/category")
-
+const Product = require("../model/product");
 exports.postcategory = (req, res) => {
 
   const categorylist = req.body;
@@ -22,10 +22,12 @@ exports.getcategory = (req, res) => {
   });
 }
 
-//getSearch
+//getSearch im input 
 exports.getSearch = (req, res) => {
-  const { id} = req.params;
-  category.findOne({id }).then((erfolg) => {
+  const { q} = req.query;
+  var xp = new RegExp(q,"i")
+  console.log("q=",q)
+  Product.find({ name:{ $regex : xp} }).then((erfolg) => {
     res.status(200).send(erfolg);
   }).catch((error) => {
     res.status(400).send(" get getSearch error " + error);

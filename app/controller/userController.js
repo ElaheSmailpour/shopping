@@ -153,3 +153,29 @@ exports.deleteloginuser = (req, res, next) => {
 		}
 	)
 }
+//changeProfile
+
+exports.changeProfile = async (req, res, next) => {
+
+	try {
+		const { _id } = req.params;
+		const userdata = req.body;
+		
+		
+		if (userdata.passwort) {
+		
+			let hashPasswort = await bcrypt.hash(nutzerDaten.passwort, 10)
+			let newUser = await User.findOneAndUpdate({_id},{...userdata, passwort: hashPasswort })
+			return res.status(200).send(newUser)
+		} else {
+					
+			let newUser = await User.findOneAndUpdate({ _id }, userdata, { new: true, upsert: true })
+			return res.status(200).send(newuser)
+		}
+
+	} catch (error) {
+		res.status(500).send({ message: "Error With PUT /users/_id ", objekt: error })
+	}
+
+}
+
