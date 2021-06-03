@@ -169,8 +169,8 @@ exports.changeProfile = async (req, res, next) => {
 			return res.status(200).send(newUser)
 		} else {
 					
-			let newUser = await User.findOneAndUpdate({ _id }, userdata, { new: true, upsert: true })
-			return res.status(200).send(newuser)
+			let updateUser = await User.findOneAndUpdate({ _id }, userdata, { new: true, upsert: true })
+			return res.status(200).send(updateUser)
 		}
 
 	} catch (error) {
