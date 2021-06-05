@@ -37,6 +37,7 @@ exports.login = async (req, res, next) => {
 	}
 }
 
+//getMe
 exports.getme = (req, res) => {
 	User.findById(req.user.userId).then((erfolg) => {
 		res.status(200).send(erfolg);
@@ -47,7 +48,7 @@ exports.getme = (req, res) => {
 
 
 
-
+//get Signup
 
 exports.getsignup = (req, res) => {
 	User.find().then((erfolg) => {

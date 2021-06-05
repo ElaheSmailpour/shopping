@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 
 
 app.use(express.static('uploads'))
-
+app.use(express.static('translations'))
 
 app.use("/api",userRoute)
 app.use("/product",ProductRouter)
