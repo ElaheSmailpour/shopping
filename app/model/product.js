@@ -15,6 +15,8 @@ const productSchema = new mongoose.Schema({
     },
     
     image: String,
+    imagemulti:[{type:String}],
+    video:String,
     inventory:Number
 })
 

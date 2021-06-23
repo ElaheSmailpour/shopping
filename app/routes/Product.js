@@ -4,7 +4,7 @@ var upload = multer({ dest: 'uploads/' })
 const express = require('express')
 const router = express.Router()
 
-const {getProduct,addProduct,deleteproduct,selectproduct,productdetails}=require("../controller/ProductController")
+const {getProduct,addProduct,deleteproduct,selectproduct,productdetails,addProductmultiImage}=require("../controller/ProductController")
 
 router.get("/",getProduct)
 
@@ -15,9 +15,10 @@ router.route('/:cat')
 router.route('/details/:_id')
 .get(productdetails)
  
-
-
-router.post("/",upload.single("image"),addProduct)
+var cpUpload = upload.fields([{ name: 'image', maxCount: 5 }, { name: 'video', maxCount: 1 }])
+router.post("/multiImage", cpUpload,addProductmultiImage)
+//router.post("/multiImage", upload.array('image', 5),addProductmultiImage)
+router.post("/", upload.single('image'),addProduct)
 
 router
   .route('/:_id')

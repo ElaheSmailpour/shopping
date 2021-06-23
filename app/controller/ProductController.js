@@ -40,9 +40,9 @@ exports.addProduct = async (req, res, next) => {
 	try {
 		const newproduct = req.body
 
-		
+    
 		const imagefilename = req.file.filename
-	   
+   
 		 console.log("imagefilename=",imagefilename)
 		
 		let createproduct = await Product.create({...newproduct,image:"http://localhost:" + process.env.PORT + "/" + imagefilename})
@@ -51,10 +51,32 @@ exports.addProduct = async (req, res, next) => {
 		res.status(201).send(createproduct );
 	
 	} catch (error) {
+    console.log("error=",error)
 		res.status(500).send('Something went wrong!')
 	}
 }
 
+//multiImage
+exports.addProductmultiImage = async (req, res, next) => {
+	try {
+		const newproduct = req.body
+
+  console.log("req.files=",req.files)
+		let createproduct = await Product.create({...newproduct,
+      imagemulti:req.files["image"].map(item=>{
+        const imagefilename = item.filename
+       return  "http://localhost:" + process.env.PORT + "/" + imagefilename
+       }),video:"http://localhost:" + process.env.PORT + "/" + req.files["video"][0].filename
+      })
+	
+		
+		res.status(201).send(createproduct );
+	
+	} catch (error) {
+    console.log("error=",error)
+		res.status(500).send('Something went wrong!')
+	}
+}
 
 exports.deleteproduct = (req, res, next) => {
   const { _id } = req.params;
